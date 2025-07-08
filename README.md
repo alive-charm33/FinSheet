@@ -1,4 +1,4 @@
-# 🧾 FinSheet — Mini Financial Report Generator (C++ + HTML)
+# 🧾 FinSheet — Mini Financial Report Generator (C++ and HTML)
 
 **FinSheet** is a beginner-friendly finance tool built using **C++** and a simple **HTML/CSS** form. It helps generate professional financial reports based on business input:
 
