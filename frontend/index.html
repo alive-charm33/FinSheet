@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FinSheet Input Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Financial Input Form</h1>
+  <form method="post" action="#" onsubmit="saveToFile(event)">
+    <label>Revenue: <input type="number" id="revenue" required></label><br>
+    <label>COGS: <input type="number" id="cogs" required></label><br>
+    <label>Operating Expenses: <input type="number" id="opex" required></label><br>
+    <label>Taxes: <input type="number" id="taxes" required></label><br>
+    <label>Assets: <input type="number" id="assets" required></label><br>
+    <label>Liabilities: <input type="number" id="liabilities" required></label><br>
+    <label>Equity: <input type="number" id="equity" required></label><br>
+    <label>Cash Flow from Operations: <input type="number" id="cfop" required></label><br>
+    <label>Cash Flow from Investing: <input type="number" id="cfinv" required></label><br>
+    <label>Cash Flow from Financing: <input type="number" id="cffin" required></label><br>
+    <button type="submit">Download input.txt</button>
+  </form>
+
+  <script>
+    function saveToFile(e) {
+      e.preventDefault();
+      const fields = [
+        'revenue', 'cogs', 'opex', 'taxes',
+        'assets', 'liabilities', 'equity',
+        'cfop', 'cfinv', 'cffin'
+      ];
+      let content = fields.map(id => document.getElementById(id).value).join("\n");
+      const blob = new Blob([content], {type: "text/plain"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "input.txt";
+      a.click();
+    }
+  </script>
+</body>
+</html>

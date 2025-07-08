@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,35 +6,68 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Financial Input Form</h1>
+  <h1>📊 FinSheet - Financial Input Form</h1>
+
   <form method="post" action="#" onsubmit="saveToFile(event)">
-    <label>Revenue: <input type="number" id="revenue" required></label><br>
-    <label>COGS: <input type="number" id="cogs" required></label><br>
-    <label>Operating Expenses: <input type="number" id="opex" required></label><br>
-    <label>Taxes: <input type="number" id="taxes" required></label><br>
-    <label>Assets: <input type="number" id="assets" required></label><br>
-    <label>Liabilities: <input type="number" id="liabilities" required></label><br>
-    <label>Equity: <input type="number" id="equity" required></label><br>
-    <label>Cash Flow from Operations: <input type="number" id="cfop" required></label><br>
-    <label>Cash Flow from Investing: <input type="number" id="cfinv" required></label><br>
-    <label>Cash Flow from Financing: <input type="number" id="cffin" required></label><br>
-    <button type="submit">Download input.txt</button>
+    <label>Revenue: <input type="number" id="revenue" required></label>
+    <label>COGS: <input type="number" id="cogs" required></label>
+    <label>Operating Expenses: <input type="number" id="opex" required></label>
+    <label>Taxes: <input type="number" id="taxes" required></label>
+    <label>Assets: <input type="number" id="assets" required></label>
+    <label>Liabilities: <input type="number" id="liabilities" required></label>
+    <label>Equity: <input type="number" id="equity" required></label>
+    <label>Cash Flow from Operations: <input type="number" id="cfop" required></label>
+    <label>Cash Flow from Investing: <input type="number" id="cfinv" required></label>
+    <label>Cash Flow from Financing: <input type="number" id="cffin" required></label>
+
+    <button type="submit">⬇️ Download input.txt</button>
+    <button type="button" onclick="generateInsight()">🔍 Analyze Business</button>
   </form>
+
+  <!-- 🔍 Summary Output Panel -->
+  <div id="summary" style="margin-top: 20px; padding: 15px; border: 2px dashed #999; background-color: #f9f9f9;"></div>
 
   <script>
     function saveToFile(e) {
       e.preventDefault();
-      const fields = [
-        'revenue', 'cogs', 'opex', 'taxes',
-        'assets', 'liabilities', 'equity',
-        'cfop', 'cfinv', 'cffin'
-      ];
+      const fields = ['revenue','cogs','opex','taxes','assets','liabilities','equity','cfop','cfinv','cffin'];
       let content = fields.map(id => document.getElementById(id).value).join("\n");
       const blob = new Blob([content], {type: "text/plain"});
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "input.txt";
       a.click();
+    }
+
+    function generateInsight() {
+      let revenue = parseFloat(document.getElementById("revenue").value);
+      let cogs = parseFloat(document.getElementById("cogs").value);
+      let opex = parseFloat(document.getElementById("opex").value);
+      let taxes = parseFloat(document.getElementById("taxes").value);
+      let assets = parseFloat(document.getElementById("assets").value);
+      let liabilities = parseFloat(document.getElementById("liabilities").value);
+      let equity = parseFloat(document.getElementById("equity").value);
+
+      let grossProfit = revenue - cogs;
+      let opProfit = grossProfit - opex;
+      let netProfit = opProfit - taxes;
+
+      let netMargin = (revenue !== 0) ? (netProfit / revenue) * 100 : 0;
+      let roa = (assets !== 0) ? (netProfit / assets) * 100 : 0;
+      let dte = (equity !== 0) ? liabilities / equity : 0;
+
+      let status = netProfit > 0 ? "🟢 PROFIT" : "🔴 LOSS";
+      let health = (netProfit > 0 && roa > 5 && dte < 2) ? "📊 Financial Health: GOOD" : "⚠️ Financial Health: WEAK";
+
+      // Show result inside summary div
+      document.getElementById("summary").innerHTML = `
+        <h2>${status}</h2>
+        <p>💰 Net Profit: ₹${netProfit.toFixed(2)}</p>
+        <p>📈 Net Margin: ${netMargin.toFixed(2)}%</p>
+        <p>🏦 ROA: ${roa.toFixed(2)}%</p>
+        <p>📉 Debt-to-Equity Ratio: ${dte.toFixed(2)}</p>
+        <p><strong>${health}</strong></p>
+      `;
     }
   </script>
 </body>

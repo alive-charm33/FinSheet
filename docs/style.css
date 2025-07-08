@@ -1,16 +1,51 @@
-
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
+  margin: 40px auto;
+  max-width: 600px;
   padding: 20px;
-  background: #f0f0f0;
+  background: #fdfdfd;
+  color: #333;
 }
-form {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
+
+h1 {
+  text-align: center;
+  color: #007acc;
 }
-label {
+
+form label {
   display: block;
-  margin-bottom: 10px;
+  margin: 12px 0 6px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 16px;
+  margin: 6px 4px 0 0;
+  font-size: 15px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+
+#viewer {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f4f4f4;
+  border-left: 5px solid #007acc;
+  font-family: monospace;
+  white-space: pre-wrap;
 }
